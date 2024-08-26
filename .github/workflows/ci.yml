@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - test-ci
+      - master
 
 jobs:
   build-and-test:
