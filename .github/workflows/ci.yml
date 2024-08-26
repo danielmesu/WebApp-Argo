@@ -4,7 +4,10 @@ on:
   push:
     branches:
       - test-ci
-      - master
+  pull_request:
+    branches: 
+      - main
+    types: [closed]
 
 jobs:
   build-and-test:
