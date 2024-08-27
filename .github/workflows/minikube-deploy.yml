@@ -34,6 +34,9 @@ jobs:
           sudo mv ./kubectl /usr/local/bin/kubectl
           kubectl version --client
 
+      - name: Create .kube directory
+        run: mkdir -p ~/.kube
+
       - name: Set KUBECONFIG
         run: echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
 
