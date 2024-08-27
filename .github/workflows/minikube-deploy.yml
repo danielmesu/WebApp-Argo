@@ -38,10 +38,29 @@ jobs:
         run: mkdir -p ~/.kube
 
       - name: Set KUBECONFIG
-        run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > ~/.kube/config
-
-      - name: Debug KUBECONFIG
-        run: cat ~/.kube/config
+        run: |
+          echo "
+          apiVersion: v1
+          clusters:
+          - cluster:
+              certificate-authority-data: <CA_CERT_BASE64>
+              server: https://127.0.0.1:59368
+            name: minikube
+          contexts:
+          - context:
+              cluster: minikube
+              namespace: default
+              user: minikube
+            name: minikube
+          current-context: minikube
+          kind: Config
+          preferences: {}
+          users:
+          - name: minikube
+            user:
+              client-certificate-data: <CLIENT_CERT_BASE64>
+              client-key-data: <CLIENT_KEY_BASE64>
+          " > ~/.kube/config
 
       - name: Deploy to Kubernetes
         run: |
