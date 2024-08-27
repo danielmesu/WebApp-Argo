@@ -1,5 +1,14 @@
 var builder = WebApplication.CreateBuilder(args);
 
+if (builder.Environment.IsDevelopment() || Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true")
+{
+    builder.WebHost.UseUrls("http://0.0.0.0:5000"); // Usar HTTP en Docker
+}
+else
+{
+    builder.WebHost.UseUrls("https://localhost:7266"); // Usar HTTPS en otros entornos
+}
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 
