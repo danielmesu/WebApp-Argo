@@ -40,6 +40,9 @@ jobs:
       - name: Set KUBECONFIG
         run: echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
 
+      - name: Debug KUBECONFIG
+        run: cat ~/.kube/config
+
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f deployment.yaml
