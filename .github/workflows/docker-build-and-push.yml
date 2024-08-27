@@ -24,7 +24,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/webapp-argo:latest .
+        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/webapp-argo:latest -f WebApp-Argo/Dockerfile WebApp-Argo
       
     - name: Push Docker image
       run: |
