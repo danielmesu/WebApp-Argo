@@ -24,7 +24,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t danielmesu25/webapp-argo:latest -f WebApp-Argo/Dockerfile .
+          docker build -t danielmesu25/webapp-argo:latest -f WebApp-Argo/Dockerfile WebApp-Argo
           docker push danielmesu25/webapp-argo:latest
 
       - name: Install kubectl
