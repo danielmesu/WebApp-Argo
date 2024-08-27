@@ -3,7 +3,7 @@ name: Deploy to Minikube
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
@@ -27,14 +27,17 @@ jobs:
           docker build -t danielmesu25/webapp-argo:latest .
           docker push danielmesu25/webapp-argo:latest
 
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v2
-        with:
-          version: '1.24.0'
+      - name: Install kubectl
+        run: |
+          curl -LO "https://dl.k8s.io/release/v1.24.0/bin/linux/amd64/kubectl"
+          chmod +x ./kubectl
+          sudo mv ./kubectl /usr/local/bin/kubectl
+          kubectl version --client
+
+      - name: Set KUBECONFIG
+        run: echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
 
       - name: Deploy to Kubernetes
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
