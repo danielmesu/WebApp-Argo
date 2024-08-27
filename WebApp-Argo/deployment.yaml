@@ -1,0 +1,21 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-argo
+  labels:
+    app: webapp-argo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webapp-argo
+  template:
+    metadata:
+      labels:
+        app: webapp-argo
+    spec:
+      containers:
+      - name: webapp-argo
+        image: danielmesu25/webapp-argo:latest
+        ports:
+        - containerPort: 5000
