@@ -38,7 +38,7 @@ jobs:
         run: mkdir -p ~/.kube
 
       - name: Set KUBECONFIG
-        run: echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+        run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > ~/.kube/config
 
       - name: Debug KUBECONFIG
         run: cat ~/.kube/config
