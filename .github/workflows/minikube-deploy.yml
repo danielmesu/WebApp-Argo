@@ -44,14 +44,10 @@ jobs:
         run: |
           minikube start --driver=docker --kubernetes-version=v1.24.0
 
-      - name: Check Minikube Status
-        run: |
-          minikube status
-
       - name: Set up kubeconfig
         run: |
           mkdir -p ~/.kube
-          minikube kubeconfig > ~/.kube/config
+          minikube kubectl -- config view --raw > ~/.kube/config
 
       - name: Debug KUBECONFIG
         run: cat ~/.kube/config
