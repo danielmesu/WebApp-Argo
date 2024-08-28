@@ -34,13 +34,15 @@ jobs:
           sudo mv ./kubectl /usr/local/bin/kubectl
           kubectl version --client
 
-      - name: Set up Minikube
-        uses: minikube/setup-minikube@v2
-        with:
-          kubernetes-version: '1.24.0'
-      
+      - name: Install Minikube
+        run: |
+          curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+          chmod +x minikube-linux-amd64
+          sudo mv minikube-linux-amd64 /usr/local/bin/minikube
+
       - name: Start Minikube
-        run: minikube start --driver=docker
+        run: |
+          minikube start --driver=docker
 
       - name: Set up kubeconfig
         run: |
